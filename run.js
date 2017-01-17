@@ -8,7 +8,7 @@
 // ==/UserScript==
 
 function load(i) {
-	$.getScript("https://raw.githubusercontent.com/L0laapk3/plugbot/master/code.js").fail(function() {
+	$.getScript("https://rawgit.com/L0laapk3/plugbot/master/run.js").fail(function() {
 	    if (i > 3) return location.reload();
 	    load(i + 1);
 	});
