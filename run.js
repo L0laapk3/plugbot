@@ -4,7 +4,7 @@
 // @description  plug bot
 // @author       L0laapk3
 // @match        https://plug.dj/*/
-// @downloadURL  https://raw.githubusercontent.com/L0laapk3/plugbot/master/run.js
+// @downloadURL  https://rawgit.com/L0laapk3/plugbot/master/run.js
 // ==/UserScript==
 
 function load(i) {
