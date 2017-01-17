@@ -33,14 +33,14 @@ function next(arr, i, track) {
 
 function chat() {
     var a, b;
-    if (a = (b = arguments)[0]) next(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace(/\$\d+/g, function(c) {
+    if (a = (b = arguments)[0]) next(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace("$name", API.getUser().username).replace(/\$\d+/g, function(c) {
         return b[parseInt(c.substring(1)) + 1];
     })).match(/[^ ]+(?: (?=.*[^ ]))?/g).join("").match(/(?:[^ ]|^)(?:.{0,248}[^ ](?= |$)|[^ ]{0,249})/g), 0, true);
 }
 
 function notrackchat() {
     var a, b;
-    if (a = (b = arguments)[0]) next(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace(/\$\d+/g, function(c) {
+    if (a = (b = arguments)[0]) next(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace("$name", API.getUser().username).replace(/\$\d+/g, function(c) {
         return b[parseInt(c.substring(1)) + 1];
     })).match(/(?:[^ ]|^)(?:.{0,244}[^ ](?= |$)|[^ ]{0,248})/g), 0, false);
 }
@@ -341,11 +341,11 @@ var messages = {
         }
     },
     control: {
-        kill: ["DTEbot has been disabled", "DTEbot has been murdered", "DTEbot has been killed", "Weee! Holidays! *shutting down*"],
-        load: ["DTEbot has loaded!"],
-        ver: ["DTEbot version 1.0.2.2 || Created by @L0laapk3, with the help of @VitalCZ."],
+        kill: ["$name has been disabled", "$name has been murdered", "$name has been killed", "Weee! Holidays! *shutting down*"],
+        load: ["$name has loaded!"],
+        ver: ["$name version 1.0.2.2 || Created by @L0laapk3, with the help of @VitalCZ."],
         ping: ["pong!", "pong!", "pong!", "kong! ... No, wait ... pong!"], //different weights on messages
-        help: ["Help site for DTEbot: http://matheusavellar.github.io/plug/dtebot", "Help site for DTEbot: https://meamme.github.io/", "Help site for DTEbot: http://dtebot.weebly.com/rules.html"],
+        help: ["go fk urself :3"],
         plughelp: ["Here: http://i.imgur.com/ZeRR07N.png"],
         msg: {
             msg: ["@$0 the message '$1' will be repeated every $2 minutes."],
@@ -450,7 +450,7 @@ var permissions = {
         return user.role >= 5;
     },
     plus: function(user) {
-        var allowed = [3831882, 4817243, 5032850, 5014635]; //L0laapk3 + DTEBOT + L0Iaapk3 + Alpha Tester
+        var allowed = [3831882, 4817243, 5032850]; //L0laapk3 + BOT + L0Iaapk3
         return -1 !== allowed.indexOf(user.id);
     },
     residentplus: function(user) {
@@ -791,7 +791,7 @@ function move(id, spot, i, protect, callback) {
 
 
 if (localStorage.disabled === "true") {
-    if (confirm("Do you want to load DTEbot?")) {
+    if (confirm("Do you want to load the bot?")) {
         localStorage.disabled = false;
         init();
     }
