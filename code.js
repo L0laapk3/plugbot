@@ -12,7 +12,6 @@ setInterval(function() {
 
 
 
-KAKKAKAKAK
 
 
 
