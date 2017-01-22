@@ -326,8 +326,8 @@ var messages = {
         meh: {
             skip: ["The community has voted off this song"],
             setAmount: ["Amount of mehs required for skip set to $0", "Okay, now I need $0 mehs for voteskip."],
-            setFail: ["pls noob"],
-            skipCmd: ["Song will be skipped at $0 mehs!", "I need $0 mehs for skip.", "In $0 this song will be terminated."]
+            setFail: ["pls noob", "m8 learn da faking syntax"],
+            skipCmd: ["Song will be skipped at $0 mehs!", "I need $0 mehs for skip.", "At $0 mehs this song will be terminated."]
         },
         op: ["That song is overplayed, @$0 check this list before playing again --> http://bit.ly/dteoplist", "Your song is on our Overplayed list, @$0 check this list before playing again --> http://bit.ly/dteoplist"],
         age: ["That video is age restricted! @$0 please remove it from your playlist!", "This video has been rated as inappropriate! @$0 please remove it from your playlist!"],
@@ -343,7 +343,7 @@ var messages = {
     control: {
         kill: ["$name has been disabled", "$name has been murdered", "$name has been killed", "Weee! Holidays! *shutting down*"],
         load: ["$name has loaded!"],
-        reload: ["aight boss! reloading.."];
+        reload: ["aight boss! reloading.."],
         ver: ["$name version 1.0.2.2 || Created by @L0laapk3, with the help of @VitalCZ."],
         ping: ["pong!", "pong!", "pong!", "kong! ... No, wait ... pong!"], //different weights on messages
         help: ["go fk urself :3"],

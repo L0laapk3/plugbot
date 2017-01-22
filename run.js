@@ -8,17 +8,25 @@
 // ==/UserScript==
 
 function load(i) {
-	$.getScript("https://rawgit.com/L0laapk3/plugbot/master/run.js").fail(function() {
-	    if (i > 3) return location.reload();
-	    load(i + 1);
-	}).done(function() {
-		setTimeout(function() {
-			try {
-				API.sendChat("critical error with bot code, please contact @L0laapk3 asap").
-			}
-			setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
-		}, 60000); //give code 60 (!) sec to init...
-	});
+	try {
+		$.getScript("https://rawgit.com/L0laapk3/plugbot/master/run.js").fail(function() {
+		    if (i > 3) return location.reload();
+		    load(i + 1);
+		}).done(function() {
+			setTimeout(function() {
+				try {
+					API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
+				}
+				setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
+			}, 60000); //give code 60 (!) sec to init...
+		});
+	} catch (ex) {
+		try {
+			API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
+			API.sendChat("error: " + ex);
+		}
+		setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
+	}
 }
 
 function checkload(i) {
