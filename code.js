@@ -1,7 +1,7 @@
 
 setInterval(function() {
 		if($(".dialog-frame > .title:contains('Session expired')").length)
-    		setTimeou(function() {
+    		setTimeout(function() {
     				location.reload();
         }, 2 * 60 * 1000); //reboot 2 minutes after someone logged into account
 }, 5000);

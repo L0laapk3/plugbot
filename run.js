@@ -12,8 +12,12 @@ function load(i) {
 	try {
 		window.botloaded = false;
 		$.getScript("https://rawgit.com/L0laapk3/plugbot/master/code.js").fail(function() {
-		    if (i > 3) return location.reload();
-		    load(i + 1);
+			try {
+				API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
+			} catch (_) {}
+			console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!! noerror");
+			setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
+			API.on(API.CHAT, function(data) { if (data.message === ".reload" || [3831882, 4817243, 5032850].indexOf(data.uid) >= 0) location.reload(); }); //manual reboot
 		}).done(function() {
 			setTimeout(function() {
 				if (!window.botloaded) {
