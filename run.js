@@ -19,6 +19,7 @@ function load(i) {
 				}
 				console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!! noerror");
 				setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
+				API.on(API.CHAT, function(data) { if (data.message === ".reload" || [3831882, 4817243, 5032850].indexOf(data.uid) >= 0) location.reload(); }); //manual reboot
 			}, 60000); //give code 60 (!) sec to init...
 		});
 	} catch (ex) {
@@ -29,6 +30,7 @@ function load(i) {
 			}
 		}, 10000);
 		console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!!" + ex);
+		API.on(API.CHAT, function(data) { if (data.message === ".reload" || [3831882, 4817243, 5032850].indexOf(data.uid) >= 0) location.reload(); }); //manual reboot
 		setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
 	}
 }
