@@ -1109,4 +1109,6 @@ function init() {
 
     console.log("LOADED! :)");
     chat(messages.control.load);
+
+    window.botloaded = true;
 }
