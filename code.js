@@ -24,24 +24,36 @@ var chats = [];
 function next(arr, i, track) {
     console.log(arr, i);
     if (arr.length <= i) return;
-    API.sendChat((track ? "/me " : "") + arr[i].match(/[^ ]+(?: (?=.*[^ ]))?/g).join(""));
+    API.sendChat((track ? "" : "/me ") + shorter(arr[i]).match(/[^ ]+(?: (?=.*[^ ]))?/g).join(""));
     console.log(track ? "track:" : "notrack:", arr[i].match(/[^ ]+(?: (?=.*[^ ]))?/g).join(""));
     if (track) chats.push(arr[i].match(/[^ ]+(?: (?=.*[^ ]))?/g).join(""));
     setTimeout(next, 1000, arr, i + 1, track);
 }
 
+
+var SPACER = "‍"; //invis char
+function longer(a) {
+    return a.split("").map(function(e) {
+        return encodeURI(e).length > 1 ? SPACER + SPACER + e : e;
+    }).join("");
+}
+function shorter(a) {
+    return a.replace(/‍/g, ""); //regex with invis char
+}
+
+
 function chat() {
     var a, b;
-    if (a = (b = arguments)[0]) next(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace("$name", API.getUser().username).replace(/\$\d+/g, function(c) {
+    if (a = (b = arguments)[0]) next(longer(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace("$name", API.getUser().username).replace(/\$\d+/g, function(c) {
         return b[parseInt(c.substring(1)) + 1];
-    })).match(/[^ ]+(?: (?=.*[^ ]))?/g).join("").match(/(?:[^ ]|^)(?:.{0,248}[^ ](?= |$)|[^ ]{0,249})/g), 0, true);
+    })).match(/[^ ]+(?: (?=.*[^ ]))?/g).join("")).match(/(?:[^ ]|^)(?:.{0,248}[^ ](?= |$)|[^ ]{0,249})/g), 0, true);
 }
 
 function notrackchat() {
     var a, b;
-    if (a = (b = arguments)[0]) next(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace("$name", API.getUser().username).replace(/\$\d+/g, function(c) {
+    if (a = (b = arguments)[0]) next(longer(((("string" === typeof a) ? a : a[~~(Math.random() * a.length)]).replace("$name", API.getUser().username).replace(/\$\d+/g, function(c) {
         return b[parseInt(c.substring(1)) + 1];
-    })).match(/(?:[^ ]|^)(?:.{0,244}[^ ](?= |$)|[^ ]{0,248})/g), 0, false);
+    }))).match(/(?:[^ ]|^)(?:.{0,244}[^ ](?= |$)|[^ ]{0,245})/g), 0, false);
 }
 
 API.on(API.CHAT, function(data) { //cleans up own messages after 30 seconds
