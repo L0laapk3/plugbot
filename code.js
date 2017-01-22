@@ -657,7 +657,7 @@ var commands = [{
     name: /shit [^ ]*bot/,
     permission: permissions.everyone,
     run: function(data) {
-        chat(messages.fun.shit);
+        chat(messages.fun.shit, data.un;
     }
 }, {
     name: ".swag",
