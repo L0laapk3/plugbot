@@ -343,6 +343,7 @@ var messages = {
     control: {
         kill: ["$name has been disabled", "$name has been murdered", "$name has been killed", "Weee! Holidays! *shutting down*"],
         load: ["$name has loaded!"],
+        reload: ["aight boss! reloading.."];
         ver: ["$name version 1.0.2.2 || Created by @L0laapk3, with the help of @VitalCZ."],
         ping: ["pong!", "pong!", "pong!", "kong! ... No, wait ... pong!"], //different weights on messages
         help: ["go fk urself :3"],
@@ -525,6 +526,7 @@ var commands = [{
     name: ".reload",
     permission: permissions.bouncerplus,
     run: function(data) {
+        chat()
         location.reload();
     }
 }, {
