@@ -655,7 +655,7 @@ var commands = [{
         chat(messages.fun.cookie);
     }
 }, {
-    name: /shit [^ ]*bot/,
+    name: /(shit|stupid|retard(ed)?|dumb|bad|cancer|lazy) [^ ]*bot/,
     permission: permissions.everyone,
     run: function(data) {
         chat(messages.fun.shit, data.un);
