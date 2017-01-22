@@ -27,7 +27,7 @@ function load(i) {
 				API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
 				API.sendChat("error: " + ex);
 			}
-		}, 5000);
+		}, 10000);
 		console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!!" + ex);
 		setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
 	}
