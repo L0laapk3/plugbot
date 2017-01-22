@@ -3,23 +3,27 @@
 // @version      1.0
 // @description  plug bot
 // @author       L0laapk3
+// @grant        none
 // @match        https://plug.dj/*/
 // @downloadURL  https://rawgit.com/L0laapk3/plugbot/master/run.js
 // ==/UserScript==
 
 function load(i) {
 	try {
+		window.botloaded = false;
 		$.getScript("https://rawgit.com/L0laapk3/plugbot/master/run.js").fail(function() {
 		    if (i > 3) return location.reload();
 		    load(i + 1);
 		}).done(function() {
 			setTimeout(function() {
-				try {
-					API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
+				if (!window.botloaded) {
+					try {
+						API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
+					} catch (_) {}
+					console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!! noerror");
+					setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
+					API.on(API.CHAT, function(data) { if (data.message === ".reload" || [3831882, 4817243, 5032850].indexOf(data.uid) >= 0) location.reload(); }); //manual reboot
 				}
-				console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!! noerror");
-				setTimeout(function() { location.reload(); }, 30 * 60 * 1000); //try reboot every 30 minutes
-				API.on(API.CHAT, function(data) { if (data.message === ".reload" || [3831882, 4817243, 5032850].indexOf(data.uid) >= 0) location.reload(); }); //manual reboot
 			}, 60000); //give code 60 (!) sec to init...
 		});
 	} catch (ex) {
@@ -27,7 +31,7 @@ function load(i) {
 			try {
 				API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
 				API.sendChat("error: " + ex);
-			}
+			} catch(_) {}
 		}, 10000);
 		console.error("\n\n\n\n\nBOT ERROR!!!!!!!!!!!!!!!!!!!" + ex);
 		API.on(API.CHAT, function(data) { if (data.message === ".reload" || [3831882, 4817243, 5032850].indexOf(data.uid) >= 0) location.reload(); }); //manual reboot
