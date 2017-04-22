@@ -590,7 +590,7 @@ var commands = [{
             mehsScale = 0;
             mehs.forEach(function(a) {
                 if (-1 === a.indexOf("n")) {
-                    mehsBase += parseInt(a);
+                    mehsBase += parseFloat(a);
                 } else {
                     mehsScale += parseFloat(a.split("").filter(function(a) {
                         return /[\d.]/.test(a);
