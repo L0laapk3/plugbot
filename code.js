@@ -608,7 +608,7 @@ var commands = [{
     name: /^(skip|\.skip|skip please)$/,
     permission: permissions.everyone,
     run: function(data) {
-        chat(messages.skip.meh.skipCmd, Math.round(parseInt(localStorage.mehsneeded) + API.getUsers().length * parseFloat(localStorage.mehsneededscale)));
+        chat(messages.skip.meh.skipCmd, Math.round(parseFloat(localStorage.mehsneeded) + API.getUsers().length * parseFloat(localStorage.mehsneededscale)));
     }
 }, {
     name: ".givespot",
@@ -949,7 +949,7 @@ function init() {
     var hasskipped = false;
     API.on(API.VOTE_UPDATE, function(data) {
         if (hasskipped) return;
-        if (API.getScore().negative >= Math.round(parseInt(localStorage.mehsneeded) + parseFloat(localStorage.mehsneededscale) * API.getUsers().length)) {
+        if (API.getScore().negative >= Math.round(parseFloat(localStorage.mehsneeded) + parseFloat(localStorage.mehsneededscale) * API.getUsers().length)) {
             hasskipped = true;
             API.moderateForceSkip();
             notrackchat(messages.skip.meh.skip);
