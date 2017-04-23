@@ -54,7 +54,7 @@ function checkload(i) {
     load(0);
 }
 if (window.isBotLoading) {
-	alert("COOKIE U STUPID CUNT");
+	console.log("COOKIE U STUPID CUNT");
 } else {
 	window.isBotLoading = true;
 	checkload(0);
