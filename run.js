@@ -53,4 +53,10 @@ function checkload(i) {
     }
     load(0);
 }
-checkload(0);
+if (window.isBotLoading) {
+	alert("COOKIE U STUPID CUNT");
+} else {
+	window.isBotLoading = true;
+	checkload(0);
+}
+
