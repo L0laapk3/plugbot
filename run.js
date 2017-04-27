@@ -44,19 +44,16 @@ function load(i) {
 }
 
 function checkload(i) {
+	i = i || 0;
     if (i > 300) return location.reload();
     try {
         $("#history-button:not('.selected')").click();
-        if ((!API) || (!$("#history-panel .timestamp").length)) return setTimeout(checkload, 100, i + 1);
+        if ((!API) || (!$("#history-panel .timestamp").length) || (!API.getHistory()) || (API.getHistory().length <= 0) || ($("#chat-messages").length <= 0)) return setTimeout(checkload, 100, i + 1);
     } catch (ex) {
-        setTimeout(checkload, 100, i + 1);
+        return setTimeout(checkload, 100, i + 1);
     }
     load(0);
 }
-if (window.isBotLoading) {
-	console.log("COOKIE U STUPID CUNT");
-} else {
-	window.isBotLoading = true;
-	checkload(0);
-}
-
+window.addEventListener('load', function() {
+	$(checkload);
+});

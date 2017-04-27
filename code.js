@@ -601,7 +601,8 @@ var commands = [{
                 return chat(messages.skip.meh.setFail);
             localStorage.mehsneeded = mehsBase;
             localStorage.mehsneededscale = mehsScale;
-            chat(messages.skip.meh.setAmount, mehsBase + (mehsScale === 0 ? "" : " + " + Math.round(mehsScale * 100) / 100 + "n"));
+            chat(messages.skip.meh.setAmount, Math.round(mehsBase * 1000) / 1000 + (mehsScale === 0 ? "" : " + " + Math.round(mehsScale * 1000) / 1000 + "n"));
+            checkMehSkip();
         }
     }
 }, {
@@ -947,14 +948,16 @@ function init() {
     if (!localStorage.mehsneededscale) localStorage.mehsneededscale = 0;
 
     var hasskipped = false;
-    API.on(API.VOTE_UPDATE, function(data) {
+    API.on(API.VOTE_UPDATE, checkMehSkip);
+    API.on(API.USER_LEAVE, checkMehSkip);
+    function checkMehSkip() {
         if (hasskipped) return;
         if (API.getScore().negative >= Math.round(parseFloat(localStorage.mehsneeded) + parseFloat(localStorage.mehsneededscale) * API.getUsers().length)) {
             hasskipped = true;
             API.moderateForceSkip();
             notrackchat(messages.skip.meh.skip);
         }
-    });
+    }
 
 
 
