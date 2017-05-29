@@ -11,6 +11,8 @@
 function load(i) {
 	try {
 		window.botloaded = false;
+		if (!$)
+			return setTimeout(function() { load(i + 1); }, 50);
 		$.getScript("https://rawgit.com/L0laapk3/plugbot/master/code.js").fail(function() {
 			try {
 				API.sendChat("critical error with bot code, please contact @L0laapk3 asap");
