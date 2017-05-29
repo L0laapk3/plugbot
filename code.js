@@ -56,7 +56,17 @@ function notrackchat() {
     }))).match(/(?:[^ ]|^)(?:.{0,244}[^ ](?= |$)|[^ ]{0,245})/g), 0, false);
 }
 
-API.on(API.CHAT, function(data) { //cleans up own messages after 30 seconds
+function splitChat(string, max, callback) {
+    result = [];
+    while (string.length > max) {
+
+    }
+
+}
+
+
+API.on(API.CHAT, function(data) { //cleans up own messages after 60 seconds
+    /*
     if ((data.uid === API.getUser().id) && chats.filter(function(a) {
             return $(".text.cid-" + data.cid)[0].innerText.split("\n").some(function(b) {
                 return b === a;
@@ -66,7 +76,12 @@ API.on(API.CHAT, function(data) { //cleans up own messages after 30 seconds
         setTimeout(function() {
             API.moderateDeleteChat(data.cid);
         }, 60 * 1000);
-    }
+    }*/
+    if (data.uid != API.getUser().id || !$("#chat-messages > .cm.emote[data-cid='" + data.cid + "']").length)
+        return;
+    setTimeout(function() {
+        API.moderateDeleteChat(data.cid);
+    }, 60 * 1000);
 });
 
 function fromname(name, exact) {
