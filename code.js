@@ -363,7 +363,10 @@ var messages = {
         na: {
             na: ["That song is no longer available.", "That song has been removed!", "This song doesnt exist! :("],
             dj: ["@$0 please update your playlist, $1 - $2 doesn't seem to exist anymore"],
-            region: ["@$0 this song is blocked in following countries: $1", "@$0 this song is blocked in $1"]
+            region: {
+                few: ["$0 this song is blocked in following countries: $1", "$0 this song is blocked in $1"],
+                many: ["@$0 this song is blocked in following countries: $1", "@$0 this song is blocked in $1"]
+            }
         }
     },
     control: {
@@ -1051,7 +1054,10 @@ function init() {
                     	countries = countries.slice(0, 4);
                         countries.push(len - 5 + " more");
                     }
-                    chat(messages.skip.na.region, data.dj.username, ((countries.length > 1) ? (countries.reverse().splice(1).reverse().join(", ") + " and ") : "") + countries[0] + ".");
+                    if (countries.length > 5)
+                        chat(messages.skip.na.region.many, data.dj.username, ((countries.length > 1) ? (countries.reverse().splice(1).reverse().join(", ") + " and ") : "") + countries[0] + ".");
+                    else
+                        chat(messages.skip.na.region.few, data.dj.username, ((countries.length > 1) ? (countries.reverse().splice(1).reverse().join(", ") + " and ") : "") + countries[0] + ".");
                 }
                 shouldSkip(a.items[0].snippet.title, data.dj.username);
             });
@@ -1152,7 +1158,9 @@ function init() {
     });
 
     console.log("LOADED! :)");
-    chat(messages.control.load);
+    setTimeout(function() {
+        chat(messages.control.load);
+    }, 5000);
 
     window.botloaded = true;
 }
