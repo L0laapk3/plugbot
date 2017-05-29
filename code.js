@@ -744,23 +744,35 @@ var commands = [{
     name: ".gif",
     permission: permissions.everyone,
     run: function(data) {
-        if (lastgif + 10 * 1000 >= new Date().getTime()) return;
-        lastgif = new Date().getTime();
-        if (data.message.length > 5) $.get("https://api.giphy.com/v1/gifs/search?api_key=" + giphykey + "&limit=100&rating=pg-13&q=" + data.message.substring(5).replace(/ /g, "+"), function(a) {
+        //if (lastgif + 10 * 1000 >= new Date().getTime()) return;
+        //lastgif = new Date().getTime();
+
+        var q = data.message.substring(5).replace(/ /g, "+");
+
+        if (data.message.length > 5) $.get("https://api.giphy.com/v1/gifs/search?api_key=" + giphykey + "&limit=100&rating=pg-13&q=" + q, function(a) {
             if (a.data.length === 0) return chat(messages.fun.gif.none, data.un, data.message.substring(5).replace(/ /g, ", "));
-            $(".text[class^='text cid-" + API.getUser().id + "']:contains('giphy.com/media'), .text[class^='text cid-" + API.getUser().id + "']:contains('amazonaws.com/giphygifs/media')").each(function(i, e) {
+            /*$(".text[class^='text cid-" + API.getUser().id + "']:contains('giphy.com/media'), .text[class^='text cid-" + API.getUser().id + "']:contains('amazonaws.com/giphygifs/media')").each(function(i, e) {
                 API.moderateDeleteChat($(e).attr('class').substring(9));
-            });
-            chat(messages.fun.gif.gif, data.un, a.data[Math.floor(a.data.length * Math.random())].images.original.url, data.message.substring(5).replace(/ /g, ", "));
+            });*/
+            chat(messages.fun.gif.gif, data.un, a.data[gifqueries[q] || (gifqueries[q] = 0)].images.original.url, data.message.substring(5).replace(/ /g, ", "));
+            gifqueries[q]++; 
+            if (gifquerytimeout[q])
+                clearTimeout(gifquerytimeout[q]);
+            gifquerytimeout[q] = setTimeout(function() {
+                delete gifquerytimeout[q];
+                delete gifqueries[q];
+            }, 1000 * 60 * 30); // 30 min
         });
         else $.get("https://api.giphy.com/v1/gifs/random?rating=pg-13&api_key=" + giphykey, function(a) {
-            $(".text[class^='text cid-" + API.getUser().id + "']:contains('giphy.com/media'), .text[class^='text cid-" + API.getUser().id + "']:contains('amazonaws.com/giphygifs/media')").each(function(i, e) {
+            /*$(".text[class^='text cid-" + API.getUser().id + "']:contains('giphy.com/media'), .text[class^='text cid-" + API.getUser().id + "']:contains('amazonaws.com/giphygifs/media')").each(function(i, e) {
                 API.moderateDeleteChat($(e).attr('class').substring(9));
-            });
+            });*/
             chat(messages.fun.gif.random, data.un, a.data.image_url);
         });
     }
 }];
+var gifqueries = {};
+var gifquerytimeout = {};
 
 
 function googl(url, callback) {
