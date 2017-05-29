@@ -22,7 +22,7 @@ $(".icon-emoji-on").click();
 var chats = [];
 
 function next(arr, i, track) {
-    console.log(arr, i);
+    //console.log(arr, i);
     if (arr.length <= i) return;
     API.sendChat((track ? "" : "/me ") + shorter(arr[i]).match(/[^ ]+(?: (?=.*[^ ]))?/g).join(""));
     console.log(track ? "track:" : "notrack:", arr[i].match(/[^ ]+(?: (?=.*[^ ]))?/g).join(""));
@@ -77,7 +77,7 @@ API.on(API.CHAT, function(data) { //cleans up own messages after 60 seconds
             API.moderateDeleteChat(data.cid);
         }, 60 * 1000);
     }*/
-    if (data.uid != API.getUser().id || !$("#chat-messages > .cm.emote[data-cid='" + data.cid + "']").length)
+    if (data.uid != API.getUser().id || !$("#chat-messages > .cm.message[data-cid='" + data.cid + "']").length)
         return;
     setTimeout(function() {
         API.moderateDeleteChat(data.cid);
@@ -916,14 +916,13 @@ function init() {
 
 
     function updatedc(data) {
-        console.log("updating dc-list");
+        //console.log("updating dc-list");
         data.forEach(function(a, i) {
             if (!localStorage["dc-" + a.id] || !JSON.parse(localStorage["dc-" + a.id]).spot || (JSON.parse(localStorage["dc-" + a.id]).spot >= i + 1)) localStorage["dc-" + a.id] = JSON.stringify({
                 time: new Date().getTime(),
                 spot: (localStorage["dc-" + a.id] && JSON.parse(localStorage["dc-" + a.id]).spot) ? Math.min(JSON.parse(localStorage["dc-" + a.id]).spot, i + 1) : (i + 1)
             });
         });
-        console.log(localStorage["dc-5032850"]);
     }
     API.on(API.WAIT_LIST_UPDATE, updatedc);
     updatedc(API.getWaitList());
@@ -1115,15 +1114,15 @@ function init() {
 
 
     function shouldSkip(song, name) {
-        console.log("should i skip " + song + " from " + name + "?");
+        //console.log("should i skip " + song + " from " + name + "?");
         if (OP.some(function(a) {
                 return a.test(song);
             })) {
-            console.log("yes!");
+            //console.log("yes!");
             API.moderateForceSkip();
             notrackchat(messages.skip.op, name, song);
         } else {
-            console.log("never!");
+            //console.log("never!");
         }
     }
     API.on(API.ADVANCE, checkForSkip);
